@@ -1,6 +1,10 @@
-node{
-  stage ('SCM Checkout'){
-    git 'https://github.com/ashwinmohanakrishnan/ashwin'
-  }
- 
+pipeline { 
+    agent any  
+    stages { 
+        stage('Build') { 
+            steps { 
+               echo 'This is a minimal pipeline.' 
+            }
+        }
+    }
 }
