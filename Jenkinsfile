@@ -3,7 +3,7 @@ node {
     git 'https://github.com/ashwinmohanakrishnan/ashwin.git'
   }
   stage('SonarQube analysis') {
-    withSonarQubeEnv('My SonarQube Server') {
+    withSonarQubeEnv('Sonar') {
       bat "mvn clean package sonar:sonar"
     } // SonarQube taskId is automatically attached to the pipeline context
   }
