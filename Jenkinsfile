@@ -1,23 +1,16 @@
 pipeline {
     agent any
+    
     stages {
-        stage('Build') {
+        stage('Download') {
             steps {
-                bat "mvn install build"
-            }
-        }
-        stage('Test') {
-            steps {
-                bat "mvn install check"
+                sh 'echo "artifact file" > generatedFile.txt'
             }
         }
     }
-
     post {
         always {
-            archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
-            junit 'build/reports/**/*.xml'
+            archiveArtifacts artifacts: 'generatedFile.txt', onlyIfSuccessful: true
         }
     }
 }
-
