@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 bat 'start' 
-               archiveArtifacts allowEmptyArchive: true, artifacts: '', fingerprint: true, onlyIfSuccessful: true
+               archiveArtifacts allowEmptyArchive: true, artifacts: '**', fingerprint: true, onlyIfSuccessful: true
             }
         }
     }
