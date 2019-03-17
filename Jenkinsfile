@@ -1,23 +1,9 @@
-pipeline {
- 
- agent {
-    node {
-      label "master"
+node {
+    stage('SonarQube analysis') {
+    // requires SonarQube Scanner 2.8+
+    def scannerHome = tool 'sonarScanner';
+    withSonarQubeEnv('Sonar') {
+      bat "${scannerHome}/bin/sonar-runner.bat"
     }
-  }
- 
-
-  stages {
-    stage("Sonarqube analysis") {
-      steps {
-        withSonarQubeEnv('Sonar') {
-         steps{
-          def scannerHome = tool name: 'Sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-          bat "${scannerHome}/bin/sonar-scanner"
-         }
-        }
-      }
-    }
-    
-  }
+  } 
 }
