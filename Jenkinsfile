@@ -10,7 +10,7 @@ pipeline {
                 
                
                 bat 'start' 
-               archiveArtifacts allowEmptyArchive: true, artifacts: '**', fingerprint: true, onlyIfSuccessful: false
+               archiveArtifacts allowEmptyArchive: true, artifacts: '**', fingerprint: true, onlyIfSuccessful: true
             }
         }
     }
