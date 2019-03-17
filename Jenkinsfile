@@ -1,13 +1,23 @@
 
-node {
-  stage('SCM') {
-    git 'https://github.com/ashwinmohanakrishnan/ashwin.git'
+pipeline {
+  environment {
+    scannerHome = tool type: 'hudson.plugins.sonar.SonarRunnerInstallation'
   }
-  stage('SonarQube analysis') {
-    // requires SonarQube Scanner 2.8+
-    def scannerHome = tool 'SonarQube Scanner 2.8';
-    withSonarQubeEnv('My SonarQube Server') {
-      sh "${scannerHome}/bin/sonar-scanner"
+  agent {
+    node {
+      label "master"
     }
   }
-}
+
+  options {
+    buildDiscarder logRotator(daysToKeepStr: '7')
+  }
+
+  stages {
+    stage("Sonarqube analysis") {
+      steps {
+        withSonarQubeEnv('SonarQube Scanner') {
+          bat "${scannerHome}/bin/sonar-scanner"
+        }
+      }
+    }
