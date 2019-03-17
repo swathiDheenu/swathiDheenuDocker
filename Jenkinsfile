@@ -6,13 +6,11 @@ pipeline {
                 git url: 'https://github.com/ashwinmohanakrishnan/ashwin.git'
             }
         }
-        stage('build && SonarQube analysis') {
+        stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('Sonar') {
-                    // Optionally use a Maven environment you've configured already
-                    withMaven(maven:'Maven') {
-                        bat "mvn clean package sonar:sonar"
-                    }
+                    def scannerHome = tool name :'Sonar' type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    bat "${scannerHome}\bin\sonar-scanner"
                 }
             }
         }
