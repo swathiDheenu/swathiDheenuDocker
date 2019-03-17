@@ -12,7 +12,7 @@ pipeline {
     stage("Sonarqube analysis") {
       steps {
         withSonarQubeEnv('SonarQube Scanner') {
-          var scannerHome = tool type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+          var scannerHome = tool name: 'Sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
           bat "${scannerHome}/bin/sonar-scanner"
         }
       }
