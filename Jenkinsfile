@@ -1,11 +1,18 @@
-node {
-    stage('SonarQube analysis') {
-    // requires SonarQube Scanner 2.8+
-     def scannerHome = tool name:'Sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation';
-    withSonarQubeEnv('Sonar') {
-      bat "${scannerHome}"
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                bat "./gradlew build"
+            }
+        }
+        stage('Test') {
+            steps {
+                bat "./gradlew check"
+            }
+        }
     }
-  } 
+
     post {
         always {
             archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
