@@ -7,7 +7,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Ok') {
+        
         stage('Error') {
             when {
                 expression { doError == '1' }
@@ -41,4 +41,4 @@ pipeline {
     }
 }
     
-}
+
