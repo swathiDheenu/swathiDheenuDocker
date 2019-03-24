@@ -1,20 +1,9 @@
 node {
-  stage('SCM') {
-    git 'https://github.com/ashwinmohanakrishnan/ashwin.git'
-  }
-  stage('Sonarqube') {
-    environment {
-        scannerHome = tool 'Sonar'
+    stage('SonarQube analysis') {
+    // requires SonarQube Scanner 2.8+
+    def scannerHome = tool name: 'Sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation';
+    withSonarQubeEnv('Sonar') {
+      bat "${scannerHome}/bin/sonar-runner.bat"
     }
-
-    steps {
-        withSonarQubeEnv('Sonar') {
-            sh "${scannerHome}/bin/sonar-scanner"
-        }
-
-        timeout(time: 10, unit: 'MINUTES') {
-            waitForQualityGate abortPipeline: true
-        }
-    }
-}
+  } 
 }
