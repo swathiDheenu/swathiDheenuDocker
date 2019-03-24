@@ -1,20 +1,11 @@
-pipeline {
-    agent any
-
-    stages {
-         
-        stage('Build') {
-          
-            
-            steps {
-                
-                def scannerHome = tool name:'Sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation';
+node {
+  stage('SCM') {
+    git 'https://github.com/ashwinmohanakrishnan/ashwin.git'
+  }
+  stage('Sonar') {
     withSonarQubeEnv('Sonar') {
-      bat "${scannerHome}"
+      // requires SonarQube Scanner for Maven 3.2+
+      bat "mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar"
     }
-                bat 'start' 
-               archiveArtifacts allowEmptyArchive: true, artifacts: '**', fingerprint: true, onlyIfSuccessful: true
-            }
-        }
-    }
+  }
 }
