@@ -1,7 +1,7 @@
 pipeline {
   environment {
     registry = "basheer1993/basheer-docker"
-    registryCredential = ‘DockerCredentials’
+    registryCredential = 'DockerCredentials'
   }
   agent any
   stages {
