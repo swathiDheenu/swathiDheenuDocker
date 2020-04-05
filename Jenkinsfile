@@ -2,6 +2,7 @@ pipeline {
   environment {
     registry = "basheer1993/basheer-docker"
     registryCredential = 'DockerCredentials'
+    dockerImage = ''
   }
   agent any
   stages {
@@ -14,7 +15,7 @@ pipeline {
       steps{
         script {
           docker.build registry + ":$BUILD_NUMBER"
-        
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
