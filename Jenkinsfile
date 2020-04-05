@@ -14,6 +14,7 @@ pipeline {
       steps{
         script {
           docker.build registry + ":$BUILD_NUMBER"
+          docker push basheer1993/basheer-docker:tagname
         }
       }
     }
