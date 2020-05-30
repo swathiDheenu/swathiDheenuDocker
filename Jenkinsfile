@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "basheer1993/basheer-docker"
+    registry = "swathidheenadayalan/swathi-docker"
     registryCredential = 'DockerCredentials'
     dockerImage = ''
   }
@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git 'https://github.com/Basheer1993/docker.git'
+        git 'https://github.com/swathiDheenu/swathiDheenuDocker'
       }
     }
     stage('Building image') {
